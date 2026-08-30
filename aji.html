@@ -11,7 +11,21 @@
 </style>
 </head>
 <body>
-<div id="root"></div>
+<div id="root">
+  <div style="color:#F1E7D0; font-family:sans-serif; padding:24px; text-align:center;">Loading World Passport&hellip;</div>
+</div>
+<script>
+  window.onerror = function (msg, url, line, col, error) {
+    var el = document.getElementById("root");
+    el.innerHTML =
+      '<div style="color:#ffb4b4; background:#3a1414; font-family:monospace; ' +
+      'padding:16px; margin:16px; border-radius:8px; font-size:13px; white-space:pre-wrap;">' +
+      '<b>Something went wrong loading the app:</b>\n\n' +
+      String(msg) + '\n(line ' + line + ', col ' + col + ')' +
+      (error && error.stack ? '\n\n' + String(error.stack).slice(0, 800) : '') +
+      '</div>';
+  };
+</script>
 
 <script>
   // Defensive localStorage wrapper: some sandboxed/embedded browser contexts
@@ -43,9 +57,9 @@
   window.__ls = __ls;
 </script>
 
-<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@babel/standalone/babel.min.js"></script>
 
 <script type="text/babel" data-presets="react">
 const { useState, useEffect } = React;
@@ -19916,8 +19930,16 @@ function WorldPassportQuiz() {
 }
 
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<WorldPassportQuiz />);
+try {
+  const root = ReactDOM.createRoot(document.getElementById("root"));
+  root.render(<WorldPassportQuiz />);
+} catch (err) {
+  document.getElementById("root").innerHTML =
+    '<div style="color:#ffb4b4; background:#3a1414; font-family:monospace; padding:16px; margin:16px; border-radius:8px; font-size:13px; white-space:pre-wrap;"><b>App failed to start:</b>\n\n' +
+    String(err && err.message ? err.message : err) +
+    (err && err.stack ? '\n\n' + String(err.stack).slice(0, 800) : '') +
+    '</div>';
+}
 </script>
 </body>
 </html>
