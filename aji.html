@@ -27,8 +27,22 @@
   };
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.production.min.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
+<script>
+  function __cdnFail__(name) {
+    return function () {
+      document.getElementById("root").innerHTML =
+        '<div style="color:#ffb4b4; background:#3a1414; font-family:monospace; padding:16px; margin:16px; border-radius:8px; font-size:13px; white-space:pre-wrap;"><b>Failed to load ' + name + ' from the CDN.</b>\n\nThis usually means a network or ad-blocking issue is preventing the page from downloading a required script. Try switching networks (WiFi/mobile data) or disabling any content blockers for this site, then reload.</div>';
+    };
+  }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.production.min.js" crossorigin="anonymous" onerror="__cdnFail__('React')()"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.production.min.js" crossorigin="anonymous" onerror="__cdnFail__('ReactDOM')()"></script>
+<script>
+  if (typeof React === "undefined" || typeof ReactDOM === "undefined") {
+    document.getElementById("root").innerHTML =
+      '<div style="color:#ffb4b4; background:#3a1414; font-family:monospace; padding:16px; margin:16px; border-radius:8px; font-size:13px; white-space:pre-wrap;"><b>React failed to initialize.</b>\n\nReact defined: ' + (typeof React !== "undefined") + '\nReactDOM defined: ' + (typeof ReactDOM !== "undefined") + '</div>';
+  }
+</script>
 
 <script>
 try {
